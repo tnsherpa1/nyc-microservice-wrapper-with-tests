@@ -27,10 +27,14 @@ dockerCompose.isRequiredBy(test)
 task waitForUsersAPI(type: Exec) {
 	commandLine './wait-for-api.sh','http://localhost:8080/users', 'Users API'
 }
-
+task startUIDevServer(type: Exec) {
+	workingDir './users-ui'
+	commandLine 'npm', 'start'
+}
 test {
 	dependsOn cleanTest
 	dependsOn waitForUsersAPI
+	dependsOn startUIDevServer
 
 	testLogging {
 		exceptionFormat "full"
