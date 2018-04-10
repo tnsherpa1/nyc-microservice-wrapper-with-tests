@@ -25,20 +25,6 @@ services:
     environment:
       - GRADLE_USER_HOME=cache
       - SPRING_PROFILES_ACTIVE=dev
-  users-app:
-    image: anapsix/alpine-java:8_jdk_unlimited
-    ports:
-      - '8081:8081'
-    volumes:
-      - .users-app:/app
-    depends_on:
-      - postgresdev
-      - api-gateway
-    working_dir: /app
-    command: './gradlew bootRun'
-    environment:
-        - GRADLE_USER_HOME=cache
-        - SPRING_PROFILES_ACTIVE=dev
   postgresdev:
     image: postgres
     ports:
@@ -47,13 +33,16 @@ services:
      - POSTGRES_PASSWORD=password
      - POSTGRES_USER=postgres
      - POSTGRES_DB=pgdev
-  reactdev:
-    image: node
+  users-api:
+    image: anapsix/alpine-java:8_jdk_unlimited
     ports:
-      - '3000:3000'
-    working_dir: /users-ui
+      - '8081:8081'
+    working_dir: /users-api
     volumes:
-      - ./users-ui:/users-ui
-    command: 'npm start'
+      - ./users-api:/users-api
     depends_on:
-      - users-app
+      - postgresdev
+    command: './gradlew bootRun'
+    environment:
+      - GRADLE_USER_HOME=cache
+      - SPRING_PROFILES_ACTIVE=dev
