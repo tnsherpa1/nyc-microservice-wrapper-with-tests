@@ -2,7 +2,7 @@
   "name": "users-ui",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://app:8080",
+  "proxy": "http://api-gateway:8080",
   "dependencies": {
     "react": "^16.3.0",
     "react-dom": "^16.3.0",

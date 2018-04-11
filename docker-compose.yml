@@ -16,9 +16,9 @@ services:
     image: anapsix/alpine-java:8_jdk_unlimited
     ports:
       - '8080:8080'
-    working_dir: /app
+    working_dir: /api-gateway
     volumes:
-      - ./api-gateway:/app
+      - ./api-gateway:/api-gateway
     depends_on:
       - eureka
     command: './gradlew bootRun'

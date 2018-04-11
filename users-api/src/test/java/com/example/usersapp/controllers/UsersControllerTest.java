@@ -82,21 +82,21 @@ public class UsersControllerTest {
     @Test
     public void findAllUsers_success_returnsStatusOK() throws Exception {
         this.mockMvc
-                .perform(get("/users"))
+                .perform(get("/"))
                 .andExpect(status().isOk());
     }
 
     @Test
     public void findAllUsers_success_returnAllUsersAsJSON() throws Exception {
         this.mockMvc
-                .perform(get("/users"))
+                .perform(get("/"))
                 .andExpect(jsonPath("$", hasSize(2)));
     }
 
     @Test
     public void findUserById_failure_userNotFoundReturns404() throws Exception {
         this.mockMvc
-                .perform(get("/users/4"))
+                .perform(get("/4"))
                 .andExpect(status().isNotFound());
     }
 
@@ -105,7 +105,7 @@ public class UsersControllerTest {
 
         this.mockMvc
                 .perform(
-                        post("/users")
+                        post("/")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonObjectMapper.writeValueAsString(newUser))
                 )
@@ -117,7 +117,7 @@ public class UsersControllerTest {
 
         this.mockMvc
                 .perform(
-                        post("/users")
+                        post("/")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonObjectMapper.writeValueAsString(newUser))
                 )
@@ -128,7 +128,7 @@ public class UsersControllerTest {
     public void findUserById_success_returnsStatusOK() throws Exception {
 
         this.mockMvc
-                .perform(get("/users/1"))
+                .perform(get("/1"))
                 .andExpect(status().isOk());
     }
 
@@ -136,7 +136,7 @@ public class UsersControllerTest {
     public void findUserById_success_returnUserName() throws Exception {
 
         this.mockMvc
-                .perform(get("/users/1"))
+                .perform(get("/1"))
                 .andExpect(jsonPath("$.userName", is("someone")));
     }
 
@@ -144,7 +144,7 @@ public class UsersControllerTest {
     public void updatedUserById_success_returnsStatusOk() throws Exception {
         this.mockMvc
                 .perform(
-                        patch("/users/1")
+                        patch("/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
                 )
@@ -155,7 +155,7 @@ public class UsersControllerTest {
     public void updateUserById_success_returnsUpdatedUserName() throws Exception {
         this.mockMvc
                 .perform(
-                        patch("/users/1")
+                        patch("/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
                 )
@@ -166,7 +166,7 @@ public class UsersControllerTest {
     public void updateUserById_success_returnsUpdatedFirstName() throws Exception {
         this.mockMvc
                 .perform(
-                        patch("/users/1")
+                        patch("/1")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
                 )
@@ -177,7 +177,7 @@ public class UsersControllerTest {
     public void updateUserById_success_returnsUpdatedLastName() throws Exception {
         this.mockMvc
                 .perform(
-                        patch("/users/1")
+                        patch("/1")
                                 .contentType(MediaType.APPLICATION_JSON)
                                 .content(jsonObjectMapper.writeValueAsString(updatedSecondUser))
                 )
@@ -188,7 +188,7 @@ public class UsersControllerTest {
     public void deleteUserById_success_returnsStatusOk() throws Exception {
         this.mockMvc
                 .perform(
-                        delete("/users/1")
+                        delete("/1")
                 )
                 .andExpect(status().isOk());
         verify(mockUserRepository, times(1)).delete(1L);
@@ -197,7 +197,7 @@ public class UsersControllerTest {
     @Test
     public void deleteUserById_failure_userNotFoundReturns404() throws Exception {
         this.mockMvc
-                .perform(delete("/users/4"))
+                .perform(delete("/4"))
                 .andExpect(status().isNotFound());
     }
 

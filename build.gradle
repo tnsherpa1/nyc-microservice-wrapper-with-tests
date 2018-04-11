@@ -1,6 +1,6 @@
 buildscript {
 	ext {
-		springBootVersion = '2.0.1.RELEASE'
+		springBootVersion = '1.5.8.RELEASE'
 	}
 	repositories {
 		mavenCentral()
@@ -8,7 +8,6 @@ buildscript {
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath "com.avast.gradle:gradle-docker-compose-plugin:0.6.17"
 		classpath "com.avast.gradle:gradle-docker-compose-plugin:0.6.17"
 	}
 }
@@ -19,29 +18,29 @@ apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'docker-compose'
 
-dockerCompose {
-	useComposeFiles = ['docker-compose.yml']
+task runUsersAPITests(type: Exec) {
+	workingDir './users-api'
+	commandLine './gradlew', 'test'
 }
-dockerCompose.isRequiredBy(test)
 
 task waitForUsersAPI(type: Exec) {
 	commandLine './wait-for-api.sh','http://localhost:8080/users', 'Users API'
 }
-task startUIDevServer(type: Exec) {
-	workingDir './users-ui'
-	commandLine 'npm', 'start'
-}
+
 test {
 	dependsOn cleanTest
 	dependsOn waitForUsersAPI
-	dependsOn startUIDevServer
+	dependsOn runUsersAPITests
 
 	testLogging {
 		exceptionFormat "full"
 		events "skipped", "passed", "failed"
 		displayGranularity 2
 	}
+
 }
+
+test.finalizedBy(composeDown)
 
 group = 'com.example'
 version = '0.0.1-SNAPSHOT'
@@ -52,12 +51,26 @@ repositories {
 }
 
 dependencies {
-	compile('org.springframework.boot:spring-boot-starter-data-jpa')
-	compile('org.springframework.boot:spring-boot-starter-web')
-	testCompile('org.springframework.boot:spring-boot-starter-test')
+	compile 'org.springframework.boot:spring-boot-starter-web'
+	compile 'org.springframework.boot:spring-boot-starter-data-jpa'
+
 	compileOnly 'org.projectlombok:lombok'
+
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+	testCompile 'io.rest-assured:rest-assured:3.0.6'
+	testCompile 'org.seleniumhq.selenium:selenium-java:3.9.1'
+	testCompile 'org.seleniumhq.selenium:selenium-api:3.9.1'
+	testCompile 'org.seleniumhq.selenium:selenium-remote-driver:3.9.1'
+	testCompile 'org.seleniumhq.selenium:selenium-chrome-driver:3.9.1'
+	testCompile 'org.seleniumhq.selenium:selenium-support:3.9.1'
+	testCompile 'com.codeborne:selenide:4.10.01'
+
 	runtime 'org.postgresql:postgresql'
 	runtime 'org.springframework.boot:spring-boot-devtools'
-	testCompile 'io.rest-assured:rest-assured:3.0.6'
 }
+
+dockerCompose {
+	useComposeFiles = ['docker-compose.yml']
+}
+dockerCompose.isRequiredBy(test)
 
