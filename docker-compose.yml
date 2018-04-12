@@ -41,6 +41,21 @@ services:
     volumes:
       - ./users-api:/users-api
     depends_on:
+      - eureka
+      - postgresdev
+    command: './gradlew bootRun'
+    environment:
+      - GRADLE_USER_HOME=cache
+      - SPRING_PROFILES_ACTIVE=dev
+  projects-api:
+    image: anapsix/alpine-java:8_jdk_unlimited
+    ports:
+      - '8082:8082'
+    working_dir: /projects-api
+    volumes:
+      - ./projects-api:/projects-api
+    depends_on:
+      - eureka
       - postgresdev
     command: './gradlew bootRun'
     environment:
@@ -56,3 +71,4 @@ services:
     command: 'npm start'
     depends_on:
       - users-api
+      - projects-api
