@@ -32,13 +32,15 @@ public class UserRepositoryTest {
         User firstUser = new User(
                 "user_name",
                 "some_firstname",
-                "some_lastname"
+                "some_lastname",
+                "password"
         );
 
         User secondUser = new User(
                 "second_username",
                 "second_firstname",
-                "second_lastname"
+                "second_lastname",
+                "password"
         );
 
         entityManager.persist(firstUser);

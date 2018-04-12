@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import {BrowserRouter as Router, Route, Switch} from 'react-router-dom'
+import {BrowserRouter as Router, Route, Switch, Redirect} from 'react-router-dom'
 import './App.css'
 import Nav from './components/Nav'
 import UserNewForm from './components/UserNewForm'
 import UsersList from './components/UsersList'
 import axios from "axios";
+import Search from './components/Search'
 
 class App extends Component {
   state = {
@@ -41,8 +42,9 @@ class App extends Component {
           <Nav/>
         </header>
         <Switch>
-          <Route exact path='/' render={()=><UserNewForm createUser={this.createUser}/>} />
+          <Route exact path='/' exact={true} render={()=><UserNewForm createUser={this.createUser} />} />
           <Route exact path='/myusers' render={()=><UsersList users={this.state.users}/>} />
+          <Route exact path='/search' component={Search} />
           <Route render={ ()=><p>404 Not found</p> }/>
         </Switch>
       </div>

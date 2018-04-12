@@ -1,12 +1,17 @@
 import React, {Component} from 'react'
+import {Redirect} from 'react-router-dom'
 
 class userNewForm extends Component {
     state = {
-      newUser: {}
+      newUser: {},
+      redirect: false
     }
     handleSubmit = (e) => {
       e.preventDefault()
       this.props.createUser(this.state.newUser)
+      this.setState({
+        redirect: true
+      })
     }
     handleChange = (e) => {
       const attributeToChange = e.target.name
@@ -18,6 +23,9 @@ class userNewForm extends Component {
       })
     }
     render() {
+      if (this.state.redirect) {
+        return <Redirect to="/search"/> 
+      }
         return (
             <div>
                 <form className='column' onSubmit={this.handleSubmit}>
@@ -33,6 +41,10 @@ class userNewForm extends Component {
                     <li className="form-row">
                       <label className='header' htmlFor="lastname">Last Name</label>
                       <input autoComplete='off' name="lastName" type="text" placeholder="Last Name" onChange={this.handleChange}/>
+                    </li>
+                    <li className="form-row">
+                      <label className='header' htmlFor="password">Password</label>
+                      <input autoComplete='off' name="password" type="password" placeholder="Last Name" />
                     </li>
                     <li className="form-row btn-row">
                       <button className='button' type="submit">Create New User</button>
