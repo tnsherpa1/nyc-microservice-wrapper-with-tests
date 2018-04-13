@@ -112,3 +112,16 @@ li label {
     font-size: 30px;
     font-weight: 200;
 }
+
+.star {
+    width: 20px;
+}
+
+.star-box {
+    background: #dddddd;
+}
+
+.city_box {
+    margin: 20px 90px;
+    border: solid 1px #999999;
+}

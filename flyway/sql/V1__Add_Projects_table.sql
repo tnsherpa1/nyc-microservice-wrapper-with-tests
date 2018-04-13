@@ -1,4 +1,4 @@
-create table IF NOT EXISTS PROJECTS (
+create table PROJECTS (
   ID serial,
   AGENCY_NAME varchar(100) NOT NULL,
   CONTACT_NAME varchar(100),
