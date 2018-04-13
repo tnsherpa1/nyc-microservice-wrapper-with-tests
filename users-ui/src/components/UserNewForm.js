@@ -43,8 +43,8 @@ class userNewForm extends Component {
                       <input autoComplete='off' name="lastName" type="text" placeholder="Last Name" onChange={this.handleChange}/>
                     </li>
                     <li className="form-row">
-                      <label className='header' htmlFor="password">Password</label>
-                      <input autoComplete='off' name="password" type="password" placeholder="Last Name" />
+                      <label className='header' htmlFor="profession">Profession</label>
+                      <input autoComplete='off' name="profession" type="text" placeholder="Profession" />
                     </li>
                     <li className="form-row btn-row">
                       <button className='button' type="submit">Create New User</button>
