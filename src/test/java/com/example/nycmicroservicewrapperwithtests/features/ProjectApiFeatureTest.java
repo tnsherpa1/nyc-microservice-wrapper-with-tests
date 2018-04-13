@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.stream.Stream;
+
 import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
 import static io.restassured.http.ContentType.JSON;
@@ -42,16 +44,6 @@ public class ProjectApiFeatureTest {
                 "5551112224",
                 "aug 1st 2018");
 
-        projectRepository.save(p1);
-
-        // Test get all Projects
-        when()
-                .get("http://localhost:8080/projects/")
-                .then()
-                .statusCode(is(200))
-                .and().body(containsString("roof"))
-                .and().body(containsString("Jen"));
-
         Project p2 = new Project(
                 "landscape agency",
                 "Karen",
@@ -60,7 +52,18 @@ public class ProjectApiFeatureTest {
                 "9993393233",
                 "aug 1st 2012");
 
-        projectRepository.save(p2);
+        Stream.of(p1, p2)
+                .forEach(project -> {
+                    projectRepository.save(project);
+                });
+
+        // Test get all Projects
+        when()
+                .get("http://localhost:8080/projects/")
+                .then()
+                .statusCode(is(200))
+                .and().body(containsString("roof"))
+                .and().body(containsString("Jen"));
 
         given()
                 .contentType(JSON)
@@ -71,6 +74,31 @@ public class ProjectApiFeatureTest {
                 .statusCode(is(200))
                 .and().body(containsString("karen"));
 
+        // Test finding one project by ID
+        when()
+                .get("http://localhost:8080/projects/" + p2.getId())
+                .then()
+                .statusCode(is(200))
+                .and().body(containsString("Garden"))
+                .and().body(containsString("Karen"));
+
+        // Test updating a project
+        p2.setAgencyName("changed_agency");
+
+        given()
+                .contentType(JSON)
+                .and().body(p2)
+                .when()
+                .patch("http://localhost:8080/projects/" + p2.getId())
+                .then()
+                .statusCode(is(200))
+                .and().body(containsString("changed_name"));
+
+        // Test deleting a project
+        when()
+                .delete("http://localhost:8080/projects/" + p2.getId())
+                .then()
+                .statusCode(is(200));
     }
 
 }

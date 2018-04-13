@@ -1,6 +1,5 @@
 package com.example.usersapp.controllers;
 
-
 import com.example.usersapp.models.User;
 import com.example.usersapp.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
