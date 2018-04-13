@@ -10,7 +10,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static io.restassured.RestAssured.given;
 import static io.restassured.RestAssured.when;
+import static io.restassured.http.ContentType.JSON;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 
@@ -49,6 +51,26 @@ public class ProjectApiFeatureTest {
                 .statusCode(is(200))
                 .and().body(containsString("roof"))
                 .and().body(containsString("Jen"));
+
+        Project p2 = new Project(
+                "landscape agency",
+                "Karen",
+                "Garden work",
+                "karen@la.com",
+                "9993393233",
+                "aug 1st 2012");
+
+        projectRepository.save(p2);
+
+        given()
+                .contentType(JSON)
+                .and().body(p2)
+                .when()
+                .post("http://localhost:8080/projects")
+                .then()
+                .statusCode(is(200))
+                .and().body(containsString("karen"));
+
     }
 
 }

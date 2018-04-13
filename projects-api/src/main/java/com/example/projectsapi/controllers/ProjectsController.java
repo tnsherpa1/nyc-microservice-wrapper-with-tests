@@ -4,7 +4,9 @@ import com.example.projectsapi.models.Project;
 import com.example.projectsapi.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
+@RestController
 public class ProjectsController {
     @Autowired
     private ProjectRepository projectRepository;
