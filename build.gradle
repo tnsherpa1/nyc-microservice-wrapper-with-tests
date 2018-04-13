@@ -23,14 +23,25 @@ task runUsersAPITests(type: Exec) {
 	commandLine './gradlew', 'test'
 }
 
+task runProjectsAPITests(type: Exec) {
+	workingDir './projects-api'
+	commandLine './gradlew', 'test'
+}
+
 task waitForUsersAPI(type: Exec) {
 	commandLine './wait-for-api.sh','http://localhost:8080/users', 'Users API'
+}
+
+task waitForProjectsAPI(type: Exec) {
+	commandLine './wait-for-api.sh','http://localhost:8080/projects', 'Projects API'
 }
 
 test {
 	dependsOn cleanTest
 	dependsOn waitForUsersAPI
+	dependsOn waitForProjectsAPI
 	dependsOn runUsersAPITests
+	dependsOn runProjectsAPITests
 
 	testLogging {
 		exceptionFormat "full"
