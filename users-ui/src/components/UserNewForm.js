@@ -1,14 +1,14 @@
 import React, {Component} from 'react'
 import {Redirect} from 'react-router-dom'
 
-class userNewForm extends Component {
+class UserNewForm extends Component {
     state = {
       newUser: {},
       redirect: false
     }
     handleSubmit = (e) => {
       e.preventDefault()
-      this.props.createUser(this.state.newUser)
+      this.props.createNewUser(this.state.newUser)
       this.setState({
         redirect: true
       })
@@ -56,4 +56,4 @@ class userNewForm extends Component {
     }
 }
 
-export default userNewForm
+export default UserNewForm

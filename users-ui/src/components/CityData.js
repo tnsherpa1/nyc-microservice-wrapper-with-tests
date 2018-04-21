@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import axios from 'axios'
 import CityList from './CityList'
 
-class Api extends Component {
+class CityData extends Component {
     state = {
         city_data: []
     }
@@ -22,4 +22,4 @@ class Api extends Component {
     }
 }
 
-export default Api
+export default CityData

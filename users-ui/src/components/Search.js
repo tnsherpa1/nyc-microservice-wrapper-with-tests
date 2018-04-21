@@ -1,5 +1,5 @@
 import React, {Component} from 'react'
-import Api from './Api'
+import CityData from './CityData'
 
 class Search extends Component {
     state = {
@@ -22,7 +22,7 @@ class Search extends Component {
                 <button className="button" type="submit">Search</button>
             </li>
             </form>
-            <Api/>
+            <CityData/>
         </div>
         )
     }

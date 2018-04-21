@@ -10,11 +10,11 @@ import Search from './components/Search'
 class App extends Component {
   state = {
     users: []
-  };
+  }
 
   async componentDidMount(){
     try {
-      const response = await axios.get(`/users/`)
+      const response = await axios.get(process.env.REACT_APP_HOST+`/users/`)
       this.setState({users: response.data})
     } catch(error) {
       console.log(error)
@@ -23,7 +23,7 @@ class App extends Component {
 
   createUser = async(user, index) => {
     try {
-      const newUserResponse = await axios.post(`/users`, user)
+      const newUserResponse = await axios.post(process.env.REACT_APP_HOST+`/users/`, user)
       const updatedUserResponse = [...this.state.users]
       updatedUserResponse.push(newUserResponse.data)
       this.setState({users: updatedUserResponse})
@@ -42,7 +42,7 @@ class App extends Component {
           <Nav/>
         </header>
         <Switch>
-          <Route exact path='/' exact={true} render={()=><UserNewForm createUser={this.createUser} />} />
+          <Route exact path='/' exact={true} render={()=><UserNewForm createNewUser={this.createUser} />} />
           <Route exact path='/myusers' render={()=><UsersList users={this.state.users}/>} />
           <Route exact path='/search' component={Search} />
           <Route render={ ()=><p>404 Not found</p> }/>
