@@ -9,8 +9,7 @@ class Nav extends Component {
         <li>
           <NavLink id='new-user-link' exact activeClassName='active' to='/'>Create</NavLink>
           <NavLink id='view-users' activeClassName='active' to='/myusers'>View all Users</NavLink>
-          <NavLink activeClassName='active' to='/updateusers'>Update</NavLink>
-          <NavLink activeClassName='active' to='/deleteusers'>Delete</NavLink>
+          <NavLink activeClassName='active' to='/myprojects'>Your Stars</NavLink>
         </li>
       </ul>
     )

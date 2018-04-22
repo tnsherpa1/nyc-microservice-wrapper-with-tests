@@ -6,6 +6,7 @@ import UserNewForm from './components/UserNewForm'
 import UsersList from './components/UsersList'
 import axios from 'axios';
 import CityData from './components/CityData'
+import Projects from './components/Projects'
 
 class App extends Component {
   state = {
@@ -45,6 +46,7 @@ class App extends Component {
           <Route exact path='/' exact={true} render={()=><UserNewForm createNewUser={this.createUser} />} />
           <Route exact path='/myusers' render={()=><UsersList users={this.state.users}/>} />
           <Route exact path='/search' component={CityData} />
+          <Route exact path='/myprojects' component={Projects}/>
           <Route render={ ()=><p>404 Not found</p> }/>
         </Switch>
       </div>
