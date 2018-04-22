@@ -125,3 +125,35 @@ li label {
     margin: 20px 90px;
     border: solid 1px #999999;
 }
+
+.search-bar {
+    border-radius: 3px;
+    margin: 10px 0;
+    padding: 15px;
+    border: 1px solid rgba(0, 0, 0, 0.43);
+    font-size: 18px;
+    width: 80%;
+}
+.search-input {
+    border-radius: 1px;
+    margin: 5px 0;
+    padding: 5px;
+    border: 1px solid #dddddd;
+    font-size: 12px;
+    width: auto;
+}
+.search-header {
+    font-size: 12px;
+    font-weight: 200;
+}
+.search-button {
+    background: #e6e6e6;
+    color: #d0021b;;
+    border: none;
+    font-size: 18px;
+    border-radius: 3px;
+    text-align: center;
+    display: block;
+    padding: 5px;
+    margin: 10px auto;
+}

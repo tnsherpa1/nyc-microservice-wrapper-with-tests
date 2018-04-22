@@ -4,7 +4,17 @@ import CityList from './CityList'
 
 class CityData extends Component {
     state = {
-        city_data: []
+        city_data: [],
+        agencies: []
+    }
+    filterList = (e) => {
+        var updatedList = this.state.city_data
+
+        updatedList = updatedList.filter(function(data){
+          return data.agency_name.toLowerCase().search(
+            e.target.value.toLowerCase()) !== -1
+        });
+        this.setState({agencies: updatedList});
     }
     async componentDidMount() {
         try {
@@ -17,7 +27,10 @@ class CityData extends Component {
     }
     render() {
         return (
-            <CityList listings={this.state.city_data} />
+            <div>
+                <input className="search-bar" autoFocus={true} type="text" placeholder="Search" onChange={this.filterList} />
+                <CityList listings={this.state.agencies} />
+            </div>
         )
     }
 }
