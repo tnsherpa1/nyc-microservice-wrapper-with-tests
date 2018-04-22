@@ -80,3 +80,5 @@ services:
     volumes:
       - './flyway/conf:/flyway/conf'
       - './flyway/sql:/flyway/sql'
+    depends_on:
+      - postgresdev
