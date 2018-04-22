@@ -12,7 +12,7 @@ class Project extends Component {
                 <li>Tel: {this.props.tel}</li>
                 <li>Start Date: {this.props.start_date}</li>
             </ul>
-            <hr/>>
+            <hr/>
             </div>
         )
     }
